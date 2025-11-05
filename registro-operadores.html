@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registro de Personal Operador y Conductor</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+  <div class="max-w-4xl mx-auto p-6">
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <!-- Header -->
+      <header class="p-6 bg-white text-center">
+        <img src="img/logo_mota_engil.jpg" alt="Logo" onerror="this.src='https://placehold.co/150x50/2563EB/FFFFFF?text=VAL+TECH';" class="h-28 mx-auto mb-3">
+        <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">REGISTRO DE PERSONAL OPERADOR Y CONDUCTOR</h1>
+        <p class="text-sm text-gray-500 mt-1">Sistema de gestión de postulantes y Validación de experiencia laboral.</p>
+      </header>
+
+      <!-- Datos RRHH -->
+      <div class="p-4 border-t border-b border-gray-200 bg-blue-50">
+        <h2 class="text-lg font-bold text-blue-800 mb-3 flex items-center">
+          <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          Datos del Responsable de Registro (RRHH)
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="hr-responsible" class="block text-sm font-medium text-gray-700">Responsable</label>
+            <input id="hr-responsible" name="hrResponsible" type="text" placeholder="Ej: Maria Rojas" class="mt-1 block w-full p-2 border rounded-lg" required>
+          </div>
+          <div>
+            <label for="hr-position" class="block text-sm font-medium text-gray-700">Cargo / Puesto</label>
+            <input id="hr-position" name="hrPosition" type="text" placeholder="Ej: Analista de Selección" class="mt-1 block w-full p-2 border rounded-lg" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex border-b border-gray-200 bg-gray-50 px-6">
+        <button id="tab-register" class="tab-button active p-4 text-gray-700" onclick="showTab('register')">
+          <span class="inline-block mr-1">📝</span> Registrar Nuevo Operador
+        </button>
+        <button id="tab-summary" class="tab-button p-4 text-gray-700" onclick="showTab('summary')">
+          <span class="inline-block mr-1">📋</span> Resumen de Postulantes
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="p-6">
+        <!-- Register tab -->
+        <div id="content-register" class="tab-content">
+          <form id="registration-form" class="space-y-6">
+
+            <!-- I. Datos Personales -->
+            <div class="border p-4 rounded-lg bg-orange-50">
+              <h2 class="text-xl font-bold text-gray-800 mb-4">I. Datos Personales e Identificación</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="dni" class="block text-sm font-medium text-gray-700">Nº Documento de Identidad (DNI)</label>
+                  <input id="dni" name="dni" type="text" placeholder="73818254" class="mt-1 block w-full p-2 border rounded-lg" required>
+                </div>
+                <div>
+                  <label for="names" class="block text-sm font-medium text-gray-700">Nombres</label>
+                  <input id="names" name="names" type="text" placeholder="Aquiles Arnaldo" class="mt-1 block w-full p-2 border rounded-lg" required>
+                </div>
+                <div>
+                  <label for="surnames" class="block text-sm font-medium text-gray-700">Apellidos</label>
+                  <input id="surnames" name="surnames" type="text" placeholder="Castro Galindo" class="mt-1 block w-full p-2 border rounded-lg" required>
+                </div>
+                <div>
+                  <label for="dob" class="block text-sm font-medium text-gray-700">Fecha de Nacimiento</label>
+                  <input id="dob" name="dob" type="date" class="mt-1 block w-full p-2 border rounded-lg" required onchange="calculateAge()">
+                  <p id="age-display" class="text-xs text-gray-500 mt-1">Edad calculada: -- años</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- II. Licencia y Ubicación -->
+            <div class="border p-4 rounded-lg bg-orange-50">
+              <h2 class="text-xl font-bold text-gray-800 mb-4">II. Licencia y Ubicación</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="license-category" class="block text-sm font-medium text-gray-700">Categoría de Licencia</label>
+                  <select id="license-category" name="licenseCategory" class="mt-1 block w-full p-2 border rounded-lg" required>
+                    <option value="">Seleccionar</option>
+                    <option value="A-I">A-I</option>
+                    <option value="A-IIA">A-IIA</option>
+                    <option value="A-IIB">A-IIB</option>
+                    <option value="A-IIIA">A-IIIA</option>
+                    <option value="A-IIIB">A-IIIB</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="revalidation-date" class="block text-sm font-medium text-gray-700">Fecha de Revalidación</label>
+                  <input id="revalidation-date" name="revalidationDate" type="date" class="mt-1 block w-full p-2 border rounded-lg" required>
+                </div>
+
+                <div>
+                  <label for="origin-place" class="block text-sm font-medium text-gray-700">Lugar de Procedencia</label>
+                  <select id="origin-place" name="originPlace" class="mt-1 block w-full p-2 border rounded-lg" required></select>
+                </div>
+
+                <div>
+                  <label for="assigned-project" class="block text-sm font-medium text-gray-700">Proyecto/Área Asignada</label>
+                  <select id="assigned-project" name="assignedProject" class="mt-1 block w-full p-2 border rounded-lg" required></select>
+                </div>
+              </div>
+            </div>
+
+            <!-- III. Experiencia Laboral -->
+            <div class="border p-4 rounded-lg bg-green-50">
+              <h2 class="text-xl font-bold text-green-800 mb-4">III. Experiencia Laboral con Equipos</h2>
+              <p class="text-sm italic text-gray-600 mb-4">*Añada los períodos y equipos certificados.</p>
+
+              <div id="experience-container" class="space-y-4"></div>
+
+              <div class="mt-4 flex gap-3">
+                <button type="button" id="add-exp-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg">+ Agregar otra Experiencia</button>
+                <button type="button" id="clear-exp-btn" class="bg-red-100 hover:bg-red-200 text-red-700 px-3 py-2 rounded-lg">Limpiar Experiencias</button>
+              </div>
+
+              <div id="experience-summary" class="mt-6 p-3 border border-green-300 bg-green-50 rounded-lg text-sm font-medium">
+                Resumen de Experiencia por Equipo: <span class="text-green-700">No hay experiencia registrada.</span>
+              </div>
+
+              <input type="hidden" name="experienceJson" id="experience-json-data">
+            </div>
+
+            <!-- IV. Fecha y hora de evaluación -->
+            <div class="border p-4 rounded-lg bg-blue-50">
+              <h2 class="text-xl font-bold text-blue-800 mb-4">IV. Programación de Evaluación teórica</h2>
+              <label for="evaluation-datetime" class="block text-sm font-medium text-gray-700">Fecha y Hora de Evaluación:</label>
+              <input id="evaluation-datetime" type="datetime-local" class="mt-1 block w-1/2 p-2 border rounded-lg" required>
+            
+
+              <!-- Nueva sección: Equipos a evaluar -->
+            <div id="evaluation-equipment-container" class="mt-4">
+              <label class="block text-sm font-semibold text-gray-700 mb-1">
+              Equipos a Evaluar
+              </label>
+            <div id="evaluation-equipment-list"
+              class="border rounded-lg p-3 bg-white grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-48 overflow-y-auto">
+              <p class="text-gray-500 text-sm col-span-full">Seleccione los equipos en los que el postulante tiene más de 3 años de experiencia.</p>
+            </div>
+            </div>
+        
+
+            </div>
+            <!-- V. Documentación y Notas -->
+            <div class="border p-4 rounded-lg bg-gray-50">
+              <h2 class="text-xl font-bold text-gray-800 mb-4">V. Documentación y Notas</h2>
+              <div class="space-y-4">
+                <div>
+                  <label for="document-upload" class="block text-sm font-medium text-gray-700">Certificado Adjunto (Simulación)</label>
+                  <input type="file" id="document-upload" name="documentUpload" class="mt-1 block w-full text-sm text-gray-500">
+                  <p class="text-xs text-gray-500 mt-1">Solo se guarda el nombre del archivo adjunto.</p>
+                </div>
+                <div>
+                  <label for="observations" class="block text-sm font-medium text-gray-700">Observaciones Adicionales</label>
+                  <textarea id="observations" name="observations" rows="3" class="mt-1 block w-full p-2 border rounded-lg" placeholder="Notas importantes sobre el postulante."></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div id="message-container" class="mt-4 text-sm font-medium" role="alert"></div>
+
+            <div class="flex justify-end gap-4 pt-4 border-t border-gray-200">
+              <button type="button" id="reset-form" class="bg-red-100 hover:bg-red-200 text-red-700 font-semibold py-2 px-4 rounded-lg">Limpiar Formulario</button>
+              <button type="submit" id="submit-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">Guardar Operador</button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Summary tab -->
+        <div id="content-summary" class="tab-content hidden">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">Resumen de Últimos 10 Postulantes</h2>
+          <div id="summary-container" class="overflow-x-auto shadow-md rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase">#</th>
+                  <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase">DNI</th>
+                  <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombres</th>
+                  <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase">Licencia</th>
+                  <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase">Proyecto</th>
+                  <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="summary-table-body" class="bg-white divide-y divide-gray-200">
+                <tr><td colspan="6" class="p-6 text-center text-gray-500">Haz clic en la pestaña "Resumen de Postulantes" para cargar los datos.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div> <!-- end p-6 -->
+    </div> <!-- end card -->
+  </div> <!-- end container -->
+
+  <script src="script.js"></script>
+</body>
+</html>
